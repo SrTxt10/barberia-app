@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% set title = "BarberiaApp" %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-center">
+    <div class="logo-mark">
+      <span class="pole"></span>
+      <strong>ZONA</strong>
+      <strong>BARBERS</strong>
+    </div>
+    <h1>Bienvenido</h1>
+    <p class="lead">Ingresa tu numero de socio para iniciar sesion</p>
+    <div class="actions">
+      <a class="button primary" href="{{ url_for('login') }}">Continuar</a>
+      <span class="small-note">¿No tienes numero de socio?</span>
+      <a class="button" href="{{ url_for('registro') }}">Registrate aqui</a>
+      <a class="button" href="{{ url_for('login') }}">Pregunta en recepcion</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

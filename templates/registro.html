@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% set title = "Registro" %}
+
+{% block content %}
+<section class="form-page">
+  <div class="panel">
+    <h1>Registrar cliente</h1>
+    <form method="post">
+      <label>
+        Nombre
+        <input name="nombre" autocomplete="name" required>
+      </label>
+      <label>
+        Cedula
+        <input name="cedula" inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" title="Solo numeros, maximo 8 caracteres" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 8)" required>
+      </label>
+      <button class="button primary" type="submit">Crear socio</button>
+      <a class="button" href="{{ url_for('login') }}">Ya tengo socio</a>
+    </form>
+  </div>
+</section>
+{% endblock %}

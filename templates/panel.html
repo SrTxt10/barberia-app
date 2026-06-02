@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% set title = "Panel" %}
+
+{% block content %}
+<section class="dashboard">
+  <div class="summary">
+    <div>
+      <p class="eyebrow">Hola, {{ client.nombre }}</p>
+      <h1>Socio #{{ client.socio }}</h1>
+      <p>Cedula {{ client.cedula }}</p>
+    </div>
+  </div>
+
+  <section class="card-section">
+    <h2>Tu ultimo servicio</h2>
+    {% if cortes %}
+      {% set corte = cortes[0] %}
+      <article class="service-card">
+        <div class="service-row"><span class="mini-icon calendar"></span>{{ corte.fecha|pretty_date }}</div>
+        <div class="service-row"><span class="mini-icon scissors"></span>{{ corte.servicio }}</div>
+        <div class="service-row"><span class="avatar"></span>Barbero: {{ corte.barbero or "Sin asignar" }}</div>
+        <a class="button" href="{{ url_for('nuevo_corte') }}">Ver detalles</a>
+      </article>
+    {% else %}
+      <p class="empty">Todavia no hay cortes en el historial.</p>
+    {% endif %}
+  </section>
+
+  <section class="card-section">
+    <h2>Reserva tu proximo corte</h2>
+    <a class="button primary" href="{{ url_for('nueva_reserva') }}">Reservar horario</a>
+    <a class="button" href="{{ url_for('nuevo_corte') }}">Agregar corte</a>
+  </section>
+
+  <section class="card-section">
+    <h2>Reservas</h2>
+    {% if reservas %}
+      <div class="list-cards">
+        {% for reserva in reservas %}
+          <article class="service-card compact-card">
+            <div>
+              <div class="service-row"><span class="mini-icon calendar"></span>{{ reserva.fecha|pretty_date }}</div>
+              <div class="service-row"><span class="mini-icon clock"></span>{{ reserva.hora }}</div>
+              <div class="service-row"><span class="mini-icon scissors"></span>{{ reserva.servicio }}</div>
+            </div>
+            <span class="status">{{ reserva.estado }}</span>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty">No hay reservas cargadas.</p>
+    {% endif %}
+  </section>
+
+  <section class="card-section">
+    <h2>Historial de cortes</h2>
+    {% if cortes %}
+      <div class="list-cards">
+        {% for corte in cortes %}
+          <article class="service-card history-card">
+            <div>
+              <div class="service-row"><span class="mini-icon calendar"></span>{{ corte.fecha|pretty_date }}</div>
+              <div class="service-row"><span class="avatar"></span>Barbero: {{ corte.barbero or "Sin asignar" }}</div>
+              <p>{{ corte.servicio }}{% if corte.notas %} - {{ corte.notas }}{% endif %}</p>
+            </div>
+            <span class="chevron">›</span>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty">Todavia no hay cortes en el historial.</p>
+    {% endif %}
+  </section>
+</section>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "BarberiaApp" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      {% if request.endpoint not in ["index", "panel"] %}
+        <a class="back-link" href="{{ url_for('panel') if session.get('socio') else url_for('index') }}" aria-label="Volver">‹</a>
+      {% else %}
+        <span class="menu-mark" aria-hidden="true"></span>
+      {% endif %}
+      <a class="brand" href="{{ url_for('index') }}">Zona Barbers</a>
+      {% if session.get("socio") %}
+        <a class="icon-link" href="{{ url_for('logout') }}" aria-label="Salir"></a>
+      {% else %}
+        <span class="menu-mark ghost" aria-hidden="true"></span>
+      {% endif %}
+    </header>
+
+    <main class="shell">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <section class="alerts">
+            {% for category, message in messages %}
+              <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </section>
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </main>
+
+    <nav class="bottom-nav">
+      <a class="{{ 'active' if request.endpoint in ['index', 'panel'] else '' }}" href="{{ url_for('panel') if session.get('socio') else url_for('index') }}">
+        <span class="nav-icon home"></span>
+        Inicio
+      </a>
+      <a class="{{ 'active' if request.endpoint == 'nuevo_corte' else '' }}" href="{{ url_for('nuevo_corte') if session.get('socio') else url_for('login') }}">
+        <span class="nav-icon history"></span>
+        Historial
+      </a>
+      <a class="{{ 'active' if request.endpoint == 'nueva_reserva' else '' }}" href="{{ url_for('nueva_reserva') if session.get('socio') else url_for('login') }}">
+        <span class="nav-icon calendar"></span>
+        Reservar
+      </a>
+      <a class="{{ 'active' if request.endpoint in ['login', 'registro'] else '' }}" href="{{ url_for('logout') if session.get('socio') else url_for('login') }}">
+        <span class="nav-icon user"></span>
+        {{ "Salir" if session.get("socio") else "Perfil" }}
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

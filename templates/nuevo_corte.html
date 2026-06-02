@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% set title = "Agregar corte" %}
+
+{% block content %}
+<section class="form-page">
+  <div class="panel">
+    <h1>Historial de servicios</h1>
+    <form method="post">
+      <label>
+        Fecha
+        <input type="date" name="fecha" value="{{ today }}">
+      </label>
+      <label>
+        Servicio
+        <select name="servicio" required>
+          <option value="">Seleccionar</option>
+          <option>Corte clasico</option>
+          <option>Fade</option>
+          <option>Barba</option>
+          <option>Corte + barba</option>
+          <option>Perfilado</option>
+        </select>
+      </label>
+      <label>
+        Barbero
+        <input name="barbero">
+      </label>
+      <label>
+        Notas
+        <textarea name="notas" rows="4"></textarea>
+      </label>
+      <button class="button primary" type="submit">Guardar servicio</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

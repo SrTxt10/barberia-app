@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% set title = "Nueva reserva" %}
+
+{% block content %}
+<section class="form-page">
+  <div class="panel">
+    <h1>Elige fecha y hora</h1>
+    <form method="post">
+      <label>
+        Fecha
+        <input type="date" name="fecha" min="{{ today }}" required>
+      </label>
+      <label>
+        Hora
+        <input type="time" name="hora" required>
+      </label>
+      <label>
+        Servicio
+        <select name="servicio" required>
+          <option value="">Seleccionar</option>
+          <option>Corte clasico</option>
+          <option>Fade</option>
+          <option>Barba</option>
+          <option>Corte + barba</option>
+          <option>Perfilado</option>
+        </select>
+      </label>
+      <button class="button primary" type="submit">Continuar</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

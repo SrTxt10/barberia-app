@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% set title = "Ingresar" %}
+
+{% block content %}
+<section class="form-page">
+  <div class="panel">
+    <div class="mini-logo">
+      <span class="pole small"></span>
+      <strong>ZONA BARBERS</strong>
+    </div>
+    <h1>Bienvenido</h1>
+    <p class="lead compact">Ingresa tu numero de socio para iniciar sesion</p>
+    <form method="post">
+      <label>
+        Numero de socio
+        <input name="socio" inputmode="numeric" placeholder="Ej. 123456" required>
+      </label>
+      <button class="button primary" type="submit">Continuar</button>
+      <span class="small-note">¿No tienes numero de socio?</span>
+      <a class="button" href="{{ url_for('registro') }}">Registrate aqui</a>
+    </form>
+  </div>
+</section>
+{% endblock %}
