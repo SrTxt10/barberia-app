@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zona Barbers</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-button" id="backButton" aria-label="Volver">‹</button>
+      <strong id="pageTitle">Zona Barbers</strong>
+      <button class="icon-button bell" id="logoutButton" aria-label="Salir"></button>
+    </header>
+
+    <main class="shell">
+      <section class="alerts" id="alerts"></section>
+
+      <section class="screen active" id="loginScreen">
+        <div class="hero-center">
+          <div class="logo-mark">
+            <span class="pole"></span>
+            <strong>ZONA</strong>
+            <strong>BARBERS</strong>
+          </div>
+          <h1>Bienvenido</h1>
+          <p>Ingresa tu numero de socio para iniciar sesion</p>
+          <form id="loginForm">
+            <label>
+              Numero de socio
+              <input id="loginSocio" inputmode="numeric" placeholder="Ej. 1001" required>
+            </label>
+            <button class="button primary" type="submit">Continuar</button>
+          </form>
+          <span class="small-note">¿No tienes numero de socio?</span>
+          <button class="button" data-screen="registerScreen">Registrate aqui</button>
+        </div>
+      </section>
+
+      <section class="screen" id="registerScreen">
+        <div class="panel">
+          <h1>Registrar cliente</h1>
+          <form id="registerForm">
+            <label>
+              Nombre
+              <input id="registerName" autocomplete="name" required>
+            </label>
+            <label>
+              Cedula
+              <input id="registerCedula" inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" title="Solo numeros, maximo 8 caracteres" required>
+            </label>
+            <button class="button primary" type="submit">Crear socio</button>
+            <button class="button" type="button" data-screen="loginScreen">Ya tengo socio</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="screen" id="homeScreen">
+        <div class="dashboard">
+          <article class="summary">
+            <p class="eyebrow" id="helloName">Hola</p>
+            <h1 id="memberNumber">Socio</h1>
+            <p id="memberCedula">Cedula</p>
+          </article>
+
+          <section class="card-section">
+            <h2>Tu ultimo servicio</h2>
+            <div id="lastService"></div>
+          </section>
+
+          <section class="card-section">
+            <h2>Reserva tu proximo corte</h2>
+            <button class="button primary" data-screen="reserveScreen">Reservar horario</button>
+            <button class="button" data-screen="serviceScreen">Agregar servicio</button>
+          </section>
+
+          <section class="card-section">
+            <h2>Mis reservas</h2>
+            <div class="list-cards" id="reservationList"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="screen" id="historyScreen">
+        <section class="card-section">
+          <h2>Historial de servicios</h2>
+          <div class="list-cards" id="historyList"></div>
+        </section>
+      </section>
+
+      <section class="screen" id="reserveScreen">
+        <div class="panel">
+          <h1>Elige fecha y hora</h1>
+          <form id="reserveForm">
+            <label>
+              Fecha
+              <input type="date" id="reserveDate" required>
+            </label>
+            <label>
+              Hora
+              <input type="time" id="reserveTime" required>
+            </label>
+            <label>
+              Servicio
+              <select id="reserveService" required>
+                <option value="">Seleccionar</option>
+                <option>Corte clasico</option>
+                <option>Fade</option>
+                <option>Barba</option>
+                <option>Corte + barba</option>
+                <option>Perfilado</option>
+              </select>
+            </label>
+            <button class="button primary" type="submit">Confirmar reserva</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="screen" id="serviceScreen">
+        <div class="panel">
+          <h1>Agregar servicio</h1>
+          <form id="serviceForm">
+            <label>
+              Fecha
+              <input type="date" id="serviceDate" required>
+            </label>
+            <label>
+              Servicio
+              <select id="serviceName" required>
+                <option value="">Seleccionar</option>
+                <option>Corte clasico</option>
+                <option>Fade</option>
+                <option>Barba</option>
+                <option>Corte + barba</option>
+                <option>Perfilado</option>
+              </select>
+            </label>
+            <label>
+              Barbero
+              <input id="serviceBarber" placeholder="Alex">
+            </label>
+            <label>
+              Notas
+              <textarea id="serviceNotes" rows="4"></textarea>
+            </label>
+            <button class="button primary" type="submit">Guardar servicio</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="active" data-screen="homeScreen"><span class="nav-icon home"></span>Inicio</button>
+      <button data-screen="historyScreen"><span class="nav-icon history"></span>Historial</button>
+      <button data-screen="reserveScreen"><span class="nav-icon calendar"></span>Reservar</button>
+      <button id="profileButton"><span class="nav-icon user"></span>Perfil</button>
+    </nav>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

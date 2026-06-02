@@ -99,3 +99,20 @@ La URL gratuita sera parecida a:
 ```text
 https://tuusuario.pythonanywhere.com
 ```
+
+## Alternativa GitHub Pages + Supabase
+
+GitHub Pages solo aloja sitios estaticos, asi que no puede ejecutar Flask ni escribir en Excel. Para usar GitHub como hosting 24/7, se agrego una version estatica en `docs/` que usa Supabase como base de datos.
+
+Archivos principales:
+
+- `docs/index.html`
+- `docs/app.js`
+- `docs/config.js`
+- `docs/supabase-schema.sql`
+
+URL esperada al activar GitHub Pages:
+
+```text
+https://SrTxt10.github.io/barberia-app/
+```
