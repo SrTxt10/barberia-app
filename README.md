@@ -71,3 +71,31 @@ Para crear una URL publica temporal:
 El script inicia Flask y abre un tunel de Cloudflare. Copiar la URL `https://...trycloudflare.com` que aparece en la consola.
 
 Una direccion personalizada como `ZonaBarbers.com` requiere comprar el dominio y configurarlo en un hosting o en Cloudflare.
+
+## Hosting gratis recomendado
+
+Para una demo gratis con Flask y Excel, la opcion mas simple es PythonAnywhere.
+
+Pasos resumidos:
+
+1. Crear una cuenta gratis en `https://www.pythonanywhere.com/`.
+2. Abrir una consola Bash en PythonAnywhere.
+3. Clonar el repo:
+
+```bash
+git clone https://github.com/SrTxt10/barberia-app.git
+cd barberia-app
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+4. En la pestaña Web, crear una app Flask manual.
+5. En el archivo WSGI de PythonAnywhere, apuntar al proyecto y usar `wsgi.py`.
+6. Recargar la app desde la pestaña Web.
+
+La URL gratuita sera parecida a:
+
+```text
+https://tuusuario.pythonanywhere.com
+```
