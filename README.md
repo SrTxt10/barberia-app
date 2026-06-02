@@ -59,3 +59,15 @@ Socios para probar:
 - `1001` - Carlos Silva
 - `1002` - Mateo Rodriguez
 - `1003` - Nicolas Pereira
+
+## Mostrar desde la web
+
+Para crear una URL publica temporal:
+
+```powershell
+.\iniciar_web.bat
+```
+
+El script inicia Flask y abre un tunel de Cloudflare. Copiar la URL `https://...trycloudflare.com` que aparece en la consola.
+
+Una direccion personalizada como `ZonaBarbers.com` requiere comprar el dominio y configurarlo en un hosting o en Cloudflare.
