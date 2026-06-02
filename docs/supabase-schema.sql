@@ -27,6 +27,13 @@ alter table clientes enable row level security;
 alter table cortes enable row level security;
 alter table reservas enable row level security;
 
+drop policy if exists "demo clientes select" on clientes;
+drop policy if exists "demo clientes insert" on clientes;
+drop policy if exists "demo cortes select" on cortes;
+drop policy if exists "demo cortes insert" on cortes;
+drop policy if exists "demo reservas select" on reservas;
+drop policy if exists "demo reservas insert" on reservas;
+
 create policy "demo clientes select" on clientes for select using (true);
 create policy "demo clientes insert" on clientes for insert with check (true);
 
@@ -42,14 +49,50 @@ insert into clientes (socio, nombre, cedula, fecha_registro) values
   (1003, 'Nicolas Pereira', '51234876', '2026-05-25')
 on conflict (socio) do nothing;
 
-insert into cortes (socio, fecha, servicio, barbero, notas) values
-  (1001, '2026-05-10', 'Corte clasico', 'Alex', 'Laterales prolijos'),
-  (1001, '2026-04-26', 'Fade', 'Alex', 'Degradado bajo'),
-  (1001, '2026-04-12', 'Corte + barba', 'Jose', 'Barba perfilada'),
-  (1002, '2026-05-18', 'Barba', 'Jose', 'Mantenimiento'),
-  (1003, '2026-05-21', 'Fade', 'Luis', 'Degradado medio');
+insert into cortes (socio, fecha, servicio, barbero, notas)
+select 1001, '2026-05-10', 'Corte clasico', 'Alex', 'Laterales prolijos'
+where not exists (
+  select 1 from cortes where socio = 1001 and fecha = '2026-05-10' and servicio = 'Corte clasico'
+);
 
-insert into reservas (socio, fecha, hora, servicio, estado) values
-  (1001, '2026-06-06', '16:00', 'Corte clasico', 'Pendiente'),
-  (1001, '2026-06-14', '17:30', 'Corte + barba', 'Pendiente'),
-  (1002, '2026-06-07', '15:00', 'Barba', 'Pendiente');
+insert into cortes (socio, fecha, servicio, barbero, notas)
+select 1001, '2026-04-26', 'Fade', 'Alex', 'Degradado bajo'
+where not exists (
+  select 1 from cortes where socio = 1001 and fecha = '2026-04-26' and servicio = 'Fade'
+);
+
+insert into cortes (socio, fecha, servicio, barbero, notas)
+select 1001, '2026-04-12', 'Corte + barba', 'Jose', 'Barba perfilada'
+where not exists (
+  select 1 from cortes where socio = 1001 and fecha = '2026-04-12' and servicio = 'Corte + barba'
+);
+
+insert into cortes (socio, fecha, servicio, barbero, notas)
+select 1002, '2026-05-18', 'Barba', 'Jose', 'Mantenimiento'
+where not exists (
+  select 1 from cortes where socio = 1002 and fecha = '2026-05-18' and servicio = 'Barba'
+);
+
+insert into cortes (socio, fecha, servicio, barbero, notas)
+select 1003, '2026-05-21', 'Fade', 'Luis', 'Degradado medio'
+where not exists (
+  select 1 from cortes where socio = 1003 and fecha = '2026-05-21' and servicio = 'Fade'
+);
+
+insert into reservas (socio, fecha, hora, servicio, estado)
+select 1001, '2026-06-06', '16:00', 'Corte clasico', 'Pendiente'
+where not exists (
+  select 1 from reservas where socio = 1001 and fecha = '2026-06-06' and hora = '16:00'
+);
+
+insert into reservas (socio, fecha, hora, servicio, estado)
+select 1001, '2026-06-14', '17:30', 'Corte + barba', 'Pendiente'
+where not exists (
+  select 1 from reservas where socio = 1001 and fecha = '2026-06-14' and hora = '17:30'
+);
+
+insert into reservas (socio, fecha, hora, servicio, estado)
+select 1002, '2026-06-07', '15:00', 'Barba', 'Pendiente'
+where not exists (
+  select 1 from reservas where socio = 1002 and fecha = '2026-06-07' and hora = '15:00'
+);
